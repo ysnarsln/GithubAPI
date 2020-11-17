@@ -6,13 +6,15 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object Network {
-	private val okHttpClient =
-		OkHttpClient.Builder().addInterceptor(HttpLoggingInterceptor()).build()
+	private val okHttpClient = OkHttpClient.Builder()
+		.addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+		.build()
 
 	private val retrofit = Retrofit.Builder()
 		.client(okHttpClient)
 		.baseUrl("https://api.github.com/")
 		.addConverterFactory(GsonConverterFactory.create())
+		.addCallAdapterFactory(NetworkResponseAdapterFactory())
 		.build()
 
 	fun <T> buildService(service: Class<T>): T {
