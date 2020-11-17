@@ -4,7 +4,13 @@ import com.google.gson.annotations.SerializedName
 
 data class Repository(
 	@SerializedName("id") val id: Int,
-	@SerializedName("name") val name: String,
-	@SerializedName("fullName") val fullName: String,
-	@SerializedName("description") val description: String
+	@SerializedName("name") val repositoryName: String,
+	@SerializedName("stargazers_count") val starCount: Int,
+	@SerializedName("open_issues_count") val openIssuesCount: Int,
+	@SerializedName("owner") val owner: Owner
+)
+
+data class Owner(
+	@SerializedName("login") val username: String,
+	@SerializedName("avatar_url") val avatar: String
 )
