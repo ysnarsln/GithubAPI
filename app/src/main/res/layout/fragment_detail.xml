@@ -48,12 +48,6 @@
 			android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
 			tools:text="Open Issues: 1" />
 
-		<Button
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginTop="200dp"
-			android:onClick="@{() -> vm.updateFavoriteState()}" />
-
 	</FrameLayout>
 
 </layout>

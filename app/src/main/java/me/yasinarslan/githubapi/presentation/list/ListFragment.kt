@@ -36,7 +36,7 @@ class ListFragment : Fragment() {
 	private fun initToolbar() {
 		val activity = requireActivity() as MainActivity
 		activity.supportActionBar?.apply {
-			title = "Home"
+			title = getString(R.string.title_home)
 			setHomeButtonEnabled(false)
 			setDisplayHomeAsUpEnabled(false)
 		}

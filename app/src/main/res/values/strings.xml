@@ -1,3 +1,11 @@
 <resources>
-	<string name="app_name">GithubAPI</string>
+	<string name="app_name">Demo</string>
+
+	<string name="title_home">Home</string>
+	<string name="action_search">Search</string>
+	<string name="hint_search">Username</string>
+	<string name="message_favorites_updated">Favorites updated!</string>
+	<string name="star_count">Star Count: %d</string>
+	<string name="open_issues">Open Issues: %d</string>
+	<string name="warning_search_text_empty">Search text can\'t be empty.</string>
 </resources>

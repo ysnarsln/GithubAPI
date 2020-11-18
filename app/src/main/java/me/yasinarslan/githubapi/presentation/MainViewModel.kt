@@ -5,12 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import me.yasinarslan.githubapi.R
+import me.yasinarslan.githubapi.common.ResourceProvider
 import me.yasinarslan.githubapi.common.Result
 import me.yasinarslan.githubapi.domain.favorite.UpdateFavoritesUseCase
 import me.yasinarslan.githubapi.domain.repository.ListRepositoriesUseCase
 import me.yasinarslan.githubapi.domain.repository.RepositoryItem
 
 class MainViewModel(
+	private val resourceProvider: ResourceProvider,
 	private val listRepositoriesUseCase: ListRepositoriesUseCase,
 	private val updateFavoritesUseCase: UpdateFavoritesUseCase
 ) : ViewModel() {
@@ -28,7 +31,7 @@ class MainViewModel(
 		viewModelScope.launch {
 			val search = searchText.value
 			if (search.isNullOrBlank()) {
-				message.value = "Search text cannot be empty."
+				message.value = resourceProvider.getString(R.string.warning_search_text_empty)
 				return@launch
 			}
 
@@ -62,11 +65,11 @@ class MainViewModel(
 	}
 
 	fun getStarCountText(): String {
-		return "Star Count: " + getSelectedRepositoryItem().starCount
+		return resourceProvider.getString(R.string.star_count, getSelectedRepositoryItem().starCount)
 	}
 
 	fun getOpenIssuesText(): String {
-		return "Open Issues: " + getSelectedRepositoryItem().openIssuesCount
+		return resourceProvider.getString(R.string.open_issues, getSelectedRepositoryItem().openIssuesCount)
 	}
 
 	fun getRepositoryList(): LiveData<List<RepositoryItem>> {
