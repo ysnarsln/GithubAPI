@@ -1,4 +1,4 @@
-package me.yasinarslan.githubapi.domain
+package me.yasinarslan.githubapi.domain.repository
 
 object RepositoryItemMapper {
 	fun get(repository: Repository, isFavorite: Boolean): RepositoryItem {

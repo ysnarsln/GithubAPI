@@ -1,17 +1,18 @@
-package me.yasinarslan.githubapi.presentation
+package me.yasinarslan.githubapi.presentation.list
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import me.yasinarslan.githubapi.R
-import me.yasinarslan.githubapi.data.GithubRepositoryImpl
 import me.yasinarslan.githubapi.databinding.FragmentListBinding
-import me.yasinarslan.githubapi.domain.ListRepositoriesUseCase
+import me.yasinarslan.githubapi.presentation.detail.DetailFragment
+import me.yasinarslan.githubapi.presentation.MainActivity
+import me.yasinarslan.githubapi.presentation.MainViewModel
+import me.yasinarslan.githubapi.presentation.MainViewModelFactory
 
 class ListFragment : Fragment() {
 	private lateinit var viewModel: MainViewModel
@@ -27,12 +28,7 @@ class ListFragment : Fragment() {
 	}
 
 	private fun initViewModel() {
-		val githubRepository = GithubRepositoryImpl()
-		val listRepositoriesUseCase = ListRepositoriesUseCase(githubRepository)
-		viewModel = ViewModelProvider(
-			requireActivity(),
-			ViewModelFactory(listRepositoriesUseCase)
-		).get(MainViewModel::class.java)
+		viewModel = ViewModelProvider(requireActivity(), MainViewModelFactory()).get(MainViewModel::class.java)
 		binding.vm = viewModel
 	}
 
@@ -72,14 +68,5 @@ class ListFragment : Fragment() {
 			.replace(R.id.container, fragment, DetailFragment::class.java.simpleName)
 			.addToBackStack(DetailFragment::class.java.simpleName)
 			.commit()
-	}
-
-	class ViewModelFactory(private val listRepositoriesUseCase: ListRepositoriesUseCase) : ViewModelProvider.Factory {
-		override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-			if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
-				return MainViewModel(listRepositoriesUseCase) as T
-			}
-			throw IllegalArgumentException("Unknown ViewModel class")
-		}
 	}
 }

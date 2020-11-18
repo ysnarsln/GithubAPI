@@ -1,8 +1,8 @@
-package me.yasinarslan.githubapi.data
+package me.yasinarslan.githubapi.data.github
 
 import me.yasinarslan.githubapi.common.Result
-import me.yasinarslan.githubapi.domain.GithubRepository
-import me.yasinarslan.githubapi.domain.Repository
+import me.yasinarslan.githubapi.domain.repository.GithubRepository
+import me.yasinarslan.githubapi.domain.repository.Repository
 import me.yasinarslan.githubapi.network.Network
 import me.yasinarslan.githubapi.network.NetworkResponse
 

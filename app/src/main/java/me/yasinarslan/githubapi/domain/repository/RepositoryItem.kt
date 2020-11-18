@@ -1,4 +1,4 @@
-package me.yasinarslan.githubapi.domain
+package me.yasinarslan.githubapi.domain.repository
 
 data class RepositoryItem(
 	val id: Int,

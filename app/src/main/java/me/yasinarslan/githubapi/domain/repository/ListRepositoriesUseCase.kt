@@ -1,12 +1,15 @@
-package me.yasinarslan.githubapi.domain
+package me.yasinarslan.githubapi.domain.repository
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import me.yasinarslan.githubapi.common.Error
 import me.yasinarslan.githubapi.common.Result
+import me.yasinarslan.githubapi.domain.UseCase
+import me.yasinarslan.githubapi.domain.favorite.ListFavoritesUseCase
 
 class ListRepositoriesUseCase(
 	private val githubRepository: GithubRepository,
+	private val listFavoritesUseCase: ListFavoritesUseCase,
 	coroutineDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : UseCase<ListRepositoriesUseCase.Param, List<RepositoryItem>>(coroutineDispatcher) {
 
@@ -16,8 +19,10 @@ class ListRepositoriesUseCase(
 
 			when (result) {
 				is Result.Success -> {
+					val favoritesList = listFavoritesUseCase(Unit) as Result.Success
+					
 					val list = result.data.map {
-						RepositoryItemMapper.get(it, false)
+						RepositoryItemMapper.get(it, favoritesList.data.contains(it.id))
 					}
 					Result.Success(list)
 				}

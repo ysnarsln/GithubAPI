@@ -1,4 +1,4 @@
-package me.yasinarslan.githubapi.presentation
+package me.yasinarslan.githubapi.presentation.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

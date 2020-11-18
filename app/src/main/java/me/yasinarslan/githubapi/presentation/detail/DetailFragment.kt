@@ -1,4 +1,4 @@
-package me.yasinarslan.githubapi.presentation
+package me.yasinarslan.githubapi.presentation.detail
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,9 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import me.yasinarslan.githubapi.data.GithubRepositoryImpl
 import me.yasinarslan.githubapi.databinding.FragmentDetailBinding
-import me.yasinarslan.githubapi.domain.ListRepositoriesUseCase
+import me.yasinarslan.githubapi.presentation.MainActivity
+import me.yasinarslan.githubapi.presentation.MainViewModel
+import me.yasinarslan.githubapi.presentation.MainViewModelFactory
 
 class DetailFragment : Fragment() {
 	private lateinit var binding: FragmentDetailBinding
@@ -23,12 +24,7 @@ class DetailFragment : Fragment() {
 	}
 
 	private fun initViewModel() {
-		val githubRepository = GithubRepositoryImpl()
-		val listRepositoriesUseCase = ListRepositoriesUseCase(githubRepository)
-		viewModel = ViewModelProvider(
-			requireActivity(),
-			ListFragment.ViewModelFactory(listRepositoriesUseCase)
-		).get(MainViewModel::class.java)
+		viewModel = ViewModelProvider(requireActivity(), MainViewModelFactory()).get(MainViewModel::class.java)
 		binding.vm = viewModel
 	}
 

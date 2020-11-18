@@ -6,7 +6,7 @@
 
 		<variable
 			name="item"
-			type="me.yasinarslan.githubapi.presentation.ListItem" />
+			type="me.yasinarslan.githubapi.presentation.list.ListItem" />
 
 	</data>
 

@@ -1,4 +1,4 @@
-package me.yasinarslan.githubapi.domain
+package me.yasinarslan.githubapi.domain.repository
 
 import com.google.gson.annotations.SerializedName
 

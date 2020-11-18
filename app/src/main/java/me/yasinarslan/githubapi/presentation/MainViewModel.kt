@@ -6,10 +6,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import me.yasinarslan.githubapi.common.Result
-import me.yasinarslan.githubapi.domain.ListRepositoriesUseCase
-import me.yasinarslan.githubapi.domain.RepositoryItem
+import me.yasinarslan.githubapi.domain.favorite.UpdateFavoritesUseCase
+import me.yasinarslan.githubapi.domain.repository.ListRepositoriesUseCase
+import me.yasinarslan.githubapi.domain.repository.RepositoryItem
 
-class MainViewModel(private val listRepositoriesUseCase: ListRepositoriesUseCase) : ViewModel() {
+class MainViewModel(
+	private val listRepositoriesUseCase: ListRepositoriesUseCase,
+	private val updateFavoritesUseCase: UpdateFavoritesUseCase
+) : ViewModel() {
 	val searchText = MutableLiveData<String>()
 
 	private val repositoryList = MutableLiveData<List<RepositoryItem>>()
@@ -46,7 +50,10 @@ class MainViewModel(private val listRepositoriesUseCase: ListRepositoriesUseCase
 
 	fun updateFavoriteState() {
 		val item = getSelectedRepositoryItem()
-		// todo save it with id
+		viewModelScope.launch {
+			val param = UpdateFavoritesUseCase.Param(item.id)
+			updateFavoritesUseCase(param)
+		}
 		item.isFavorite = !item.isFavorite
 	}
 
