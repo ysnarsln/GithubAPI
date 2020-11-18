@@ -1,19 +1,32 @@
 package me.yasinarslan.githubapi.data.favorite
 
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import me.yasinarslan.githubapi.domain.favorite.FavoriteRepository
 
-class FavoriteRepositoryImpl : FavoriteRepository {
-	private val favoriteList = mutableListOf<Int>()
+class FavoriteRepositoryImpl(private val favoriteDataStore: FavoriteDataStore) : FavoriteRepository {
+	private var favoriteList = mutableListOf<Int>()
 
-	override fun listFavorites(): List<Int> = favoriteList
+	override suspend fun listFavorites(): List<Int> {
+		if (favoriteList.isNullOrEmpty()) {
+			val json = favoriteDataStore.getFavorites()
+			val mutableListType = object : TypeToken<MutableList<Int>>() {}.type
+			try {
+				favoriteList = Gson().fromJson(json, mutableListType)
+			} catch (e: Exception) {
+			}
+		}
+		return favoriteList
+	}
 
-	override fun updateFavorites(id: Int) {
+	override suspend fun updateFavorites(id: Int) {
 		if (favoriteList.contains(id)) {
 			favoriteList.remove(id)
 		} else {
 			favoriteList.add(id)
 		}
 
-		// todo persist favoriteList
+		val json = Gson().toJson(favoriteList)
+		favoriteDataStore.save(json)
 	}
 }

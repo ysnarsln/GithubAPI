@@ -1,15 +1,22 @@
 package me.yasinarslan.githubapi.presentation
 
+import android.content.Context
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.createDataStore
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import me.yasinarslan.githubapi.data.favorite.FavoriteDataStore
 import me.yasinarslan.githubapi.data.favorite.FavoriteRepositoryImpl
 import me.yasinarslan.githubapi.data.github.GithubRepositoryImpl
 import me.yasinarslan.githubapi.domain.favorite.ListFavoritesUseCase
 import me.yasinarslan.githubapi.domain.favorite.UpdateFavoritesUseCase
 import me.yasinarslan.githubapi.domain.repository.ListRepositoriesUseCase
 
-class MainViewModelFactory : ViewModelProvider.Factory {
-	private val favoriteRepository = FavoriteRepositoryImpl()
+class MainViewModelFactory(context: Context) : ViewModelProvider.Factory {
+	private val dataStore: DataStore<Preferences> = context.createDataStore(name = "favorites")
+	private val favoriteDataStore = FavoriteDataStore(dataStore)
+	private val favoriteRepository = FavoriteRepositoryImpl(favoriteDataStore)
 	private val listFavoritesUseCase = ListFavoritesUseCase(favoriteRepository)
 	private val githubRepository = GithubRepositoryImpl()
 

@@ -24,7 +24,8 @@ class DetailFragment : Fragment() {
 	}
 
 	private fun initViewModel() {
-		viewModel = ViewModelProvider(requireActivity(), MainViewModelFactory()).get(MainViewModel::class.java)
+		viewModel = ViewModelProvider(requireActivity(), MainViewModelFactory(requireContext()))
+			.get(MainViewModel::class.java)
 		binding.vm = viewModel
 	}
 

@@ -9,10 +9,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import me.yasinarslan.githubapi.R
 import me.yasinarslan.githubapi.databinding.FragmentListBinding
-import me.yasinarslan.githubapi.presentation.detail.DetailFragment
 import me.yasinarslan.githubapi.presentation.MainActivity
 import me.yasinarslan.githubapi.presentation.MainViewModel
 import me.yasinarslan.githubapi.presentation.MainViewModelFactory
+import me.yasinarslan.githubapi.presentation.detail.DetailFragment
 
 class ListFragment : Fragment() {
 	private lateinit var viewModel: MainViewModel
@@ -28,7 +28,8 @@ class ListFragment : Fragment() {
 	}
 
 	private fun initViewModel() {
-		viewModel = ViewModelProvider(requireActivity(), MainViewModelFactory()).get(MainViewModel::class.java)
+		viewModel = ViewModelProvider(requireActivity(), MainViewModelFactory(requireContext()))
+			.get(MainViewModel::class.java)
 		binding.vm = viewModel
 	}
 

@@ -1,7 +1,7 @@
 package me.yasinarslan.githubapi.domain.favorite
 
 interface FavoriteRepository {
-	fun listFavorites(): List<Int>
+	suspend fun listFavorites(): List<Int>
 
-	fun updateFavorites(id: Int)
+	suspend fun updateFavorites(id: Int)
 }
