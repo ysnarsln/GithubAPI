@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools">
+
+	<data>
+
+		<variable
+			name="vm"
+			type="me.yasinarslan.githubapi.presentation.MainViewModel" />
+	</data>
+
+	<FrameLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+
+		<com.google.android.material.textfield.TextInputLayout
+			style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+			android:layout_width="match_parent"
+			android:layout_height="54dp"
+			android:layout_marginStart="16dp"
+			android:layout_marginTop="16dp"
+			android:layout_marginEnd="140dp"
+			app:hintEnabled="false">
+
+			<com.google.android.material.textfield.TextInputEditText
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:hint="@string/app_name"
+				android:text="@={vm.searchText}" />
+
+		</com.google.android.material.textfield.TextInputLayout>
+
+		<Button
+			android:layout_width="108dp"
+			android:layout_height="54dp"
+			android:layout_gravity="end"
+			android:layout_marginTop="16dp"
+			android:layout_marginEnd="16dp"
+			android:onClick="@{() -> vm.search()}"
+			android:text="Search" />
+
+		<androidx.recyclerview.widget.RecyclerView
+			android:id="@+id/repository_list"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:layout_marginTop="80dp"
+			android:clipToPadding="false"
+			android:paddingHorizontal="16dp"
+			android:paddingBottom="16dp"
+			tools:itemCount="12"
+			tools:listitem="@layout/item_repository_list" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:text="@{vm.message}"
+			android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+			tools:visibility="gone" />
+
+		<ProgressBar
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:visibility="@{vm.progressVisibility}"
+			tools:visibility="gone" />
+
+	</FrameLayout>
+
+</layout>
