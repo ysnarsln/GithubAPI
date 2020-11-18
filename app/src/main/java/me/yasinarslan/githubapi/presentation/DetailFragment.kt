@@ -1,0 +1,44 @@
+package me.yasinarslan.githubapi.presentation
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import me.yasinarslan.githubapi.data.GithubRepositoryImpl
+import me.yasinarslan.githubapi.databinding.FragmentDetailBinding
+import me.yasinarslan.githubapi.domain.ListRepositoriesUseCase
+
+class DetailFragment : Fragment() {
+	private lateinit var binding: FragmentDetailBinding
+	private lateinit var viewModel: MainViewModel
+
+	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+		binding = FragmentDetailBinding.inflate(inflater, container, false)
+		binding.lifecycleOwner = viewLifecycleOwner
+		initViewModel()
+		initToolbar()
+		return binding.root
+	}
+
+	private fun initViewModel() {
+		val githubRepository = GithubRepositoryImpl()
+		val listRepositoriesUseCase = ListRepositoriesUseCase(githubRepository)
+		viewModel = ViewModelProvider(
+			requireActivity(),
+			ListFragment.ViewModelFactory(listRepositoriesUseCase)
+		).get(MainViewModel::class.java)
+		binding.vm = viewModel
+	}
+
+	private fun initToolbar() {
+		val activity = requireActivity() as MainActivity
+		activity.supportActionBar?.apply {
+			title = viewModel.getSelectedRepositoryItem().repositoryName
+			setHomeButtonEnabled(true)
+			setDisplayHomeAsUpEnabled(true)
+		}
+	}
+
+}

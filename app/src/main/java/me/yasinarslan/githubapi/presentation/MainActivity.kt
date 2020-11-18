@@ -12,10 +12,25 @@ class MainActivity : AppCompatActivity() {
 
 		val toolbar = findViewById<Toolbar>(R.id.toolbar)
 		setSupportActionBar(toolbar)
+		toolbar.setNavigationOnClickListener {
+			onBackPressed()
+		}
 
 		if (savedInstanceState == null) {
-			val fragment = supportFragmentManager.findFragmentByTag(ListFragment::class.java.simpleName) ?: ListFragment()
-			supportFragmentManager.beginTransaction().add(R.id.container, fragment, ListFragment::class.java.simpleName).commit()
+			val fragment = supportFragmentManager.findFragmentByTag(ListFragment::class.java.simpleName)
+				?: ListFragment()
+
+			supportFragmentManager.beginTransaction()
+				.add(R.id.container, fragment, ListFragment::class.java.simpleName)
+				.commit()
+		}
+	}
+
+	override fun onBackPressed() {
+		if (supportFragmentManager.backStackEntryCount == 0) {
+			super.onBackPressed()
+		} else {
+			supportFragmentManager.popBackStack()
 		}
 	}
 }

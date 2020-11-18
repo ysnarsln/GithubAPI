@@ -16,6 +16,8 @@ class MainViewModel(private val listRepositoriesUseCase: ListRepositoriesUseCase
 	private val progressVisibility = MutableLiveData<Boolean>()
 	private val message = MutableLiveData<String>()
 
+	private var selectedPosition: Int = -1
+
 	fun search() {
 		message.value = ""
 		repositoryList.value = mutableListOf()
@@ -36,6 +38,28 @@ class MainViewModel(private val listRepositoriesUseCase: ListRepositoriesUseCase
 				is Result.Failure -> message.value = result.error.message
 			}
 		}
+	}
+
+	fun setSelectedPosition(position: Int) {
+		selectedPosition = position
+	}
+
+	fun updateFavoriteState() {
+		val item = getSelectedRepositoryItem()
+		// todo save it with id
+		item.isFavorite = !item.isFavorite
+	}
+
+	fun getSelectedRepositoryItem(): RepositoryItem {
+		return repositoryList.value!![selectedPosition]
+	}
+
+	fun getStarCountText(): String {
+		return "Star Count: " + getSelectedRepositoryItem().starCount
+	}
+
+	fun getOpenIssuesText(): String {
+		return "Open Issues: " + getSelectedRepositoryItem().openIssuesCount
 	}
 
 	fun getRepositoryList(): LiveData<List<RepositoryItem>> {

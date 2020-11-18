@@ -7,5 +7,5 @@ data class RepositoryItem(
 	val openIssuesCount: Int,
 	val ownerName: String,
 	val ownerAvatarUrl: String,
-	val isFavorite: Boolean
+	var isFavorite: Boolean
 )

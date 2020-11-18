@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools">
+
+	<data>
+
+		<variable
+			name="vm"
+			type="me.yasinarslan.githubapi.presentation.MainViewModel" />
+	</data>
+
+	<FrameLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:padding="16dp">
+
+		<ImageView
+			android:id="@+id/avatar"
+			android:layout_width="128dp"
+			android:layout_height="128dp"
+			app:imageUrl="@{vm.selectedRepositoryItem.ownerAvatarUrl}"
+			tools:src="@drawable/ic_launcher_foreground" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="140dp"
+			android:text="@{vm.selectedRepositoryItem.ownerName}"
+			android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+			tools:text="Username" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="140dp"
+			android:layout_marginTop="32dp"
+			android:text="@{vm.starCountText}"
+			android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+			tools:text="Star Count: 1" />
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="140dp"
+			android:layout_marginTop="56dp"
+			android:text="@{vm.openIssuesText}"
+			android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+			tools:text="Open Issues: 1" />
+
+		<Button
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="200dp"
+			android:onClick="@{() -> vm.updateFavoriteState()}" />
+
+	</FrameLayout>
+
+</layout>
